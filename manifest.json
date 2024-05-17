@@ -1,0 +1,54 @@
+{
+  "manifest_version": 3,
+  "name": "GenAI Prompt Extension",
+  "version": "1.8",
+  "permissions": [
+	"tabs",
+	"activeTab",
+	"scripting",
+  "storage",
+  "windows"
+	],
+  "host_permissions": [
+    "*://chatgpt.com/*",
+    "*://gemini.google.com/app/*",
+    "*://claude.ai/chats/*",
+    "*://groq.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "*://chatgpt.com/*",
+        "*://gemini.google.com/app/*",
+        "*://claude.ai/chats/*",
+        "*://groq.com/*"
+      ],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "commands": {
+    "_execute_action": {
+        "suggested_key": {
+             "default": "Ctrl+Shift+Z", 
+             "mac": "Command+Shift+X" 
+        },
+        "description": "Activate the extension"
+    }
+  },
+   "action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "media/16.png",
+      "48": "media/48.png",
+      "128": "media/128.png"
+    }
+  },
+  "icons": {
+    "16": "media/16.png",
+    "48": "media/48.png",
+    "128": "media/128.png"
+  }
+}

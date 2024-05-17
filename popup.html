@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Enter Prompt</title>
+<style>
+    body, html {
+        width: 700px; /* Adjust this width as needed */
+        height: auto; /* Let height adjust to content */
+        margin: 0;
+        padding: 10px;
+        box-sizing: border-box;
+        background-color: rgb(31, 31, 31);
+    }
+    *, *::before, *::after {
+        box-sizing: inherit; /* Inherit box-sizing from body */
+    }
+    textarea, button {
+        width: calc(100% - 20px); /* 100% of the parent width minus padding */
+        margin: 0 0 10px 0;
+        padding: 5px;
+    }
+    textarea {
+        height: 400px; /* Set a fixed height for the textarea */
+        background-color: black;
+        color: whitesmoke;
+        font-size: large;
+        resize: none; /* Prevent textarea from being resized */
+    }
+    button {
+        background-color: #653ef3; /* Button background color */
+        color: white; /* Button text color */
+        border: none; /* No border for the button */
+        cursor: pointer; /* Pointer cursor on hover */
+        height: 30px; /* Set a fixed height for the button */
+    }
+    button:hover {
+        background-color: #5c2eda; /* Darker color on hover */
+    }
+    .checkbox-group {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        max-width: 640px; /* Adjust the max width to fit checkboxes more snugly */
+        margin: auto; /* Center the checkbox group */
+        color: white; /* Text color for labels */
+    }
+    .checkbox-group label {
+        display: flex;
+        align-items: center;
+        margin: 5px; /* Adjust spacing around checkboxes */
+        font-size: medium;
+        cursor: pointer;
+    }
+    .checkbox-group input[type="checkbox"] {
+        margin-right: 5px; /* Space between checkbox and label */
+    }
+    .close-btn-container {
+        position: relative;
+        text-align: right;
+        margin-bottom: -30px; /* Adjust as necessary to fit your design */
+    }
+    #closeBtn {
+        font-size: 20px; /* Adjust size as necessary */
+        line-height: 20px;
+        width: 30px; /* Width of the button */
+        height: 30px; /* Height of the button */
+        margin: 0;
+        padding: 0;
+        border: none;
+        background-color: transparent; /* Make the background match the popup */
+        color: white; /* Match the theme colors */
+        cursor: pointer;
+    }
+    
+    #closeBtn:hover {
+        color: #ccc; /* Slightly change color on hover for feedback */
+    }
+    
+    .history-container {
+        margin-top: 20px;
+        background-color: #2a2a2a; /* Slightly lighter than the popup background for distinction */
+        border-top: 2px solid #453ef3; /* A border color that matches the button color for consistency */
+        padding: 10px;
+        color: whitesmoke; /* Matching the text color of the textarea */
+        font-size: medium; /* Matching the general font size used */
+        max-height: 150px; /* Adjustable based on your needs, allows for scrolling */
+        overflow-y: auto; /* Enables scrolling if content exceeds max height */
+        border-radius: 5px; /* Optional: adds rounded corners for a smoother look */
+    }
+    
+    .history-container h3 {
+        color: #888; /* Lighter text color for the header */
+        margin: 0 0 10px 0; /* Spacing above and below the header */
+        padding: 0;
+        font-size: medium; /* Slightly larger font size for the section header */
+        text-align: center; /* Center-align the section header */
+    }
+    
+    .history-container div {
+        padding: 5px;
+        margin-bottom: 5px; /* Space between history items */
+        background-color: #333; /* Each history item has a distinct background */
+        cursor: pointer; /* Indicates the item is clickable */
+        border-radius: 3px; /* Rounded corners for each item */
+    }
+    
+    .history-container div:hover {
+        background-color: #414141; /* Slightly lighter on hover for feedback */
+    }
+    
+</style>
+
+</head>
+
+<body>
+    <div class="close-btn-container">
+        <button id="closeBtn" aria-label="Close" title="Close the popup">&#10005;</button>
+    </div>
+    <div style="text-align: center;">
+        <label for="prompt" style="color: white;font-size:large;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">GenAI Prompt Extension</label>
+    </div>
+    <br>
+    <textarea id="prompt" placeholder="Enter AI prompt here..." autofocus></textarea>
+    <div class="checkbox-group">
+        <label title="Select to include GPT in your AI request"><input type="checkbox" id="gpt" name="ai_options" value="GPT" checked>GPT</label>
+        <label title="Select to include Gemini in your AI request"><input type="checkbox" id="gemini" name="ai_options" value="Gemini" checked>Gemini</label>
+        <label title="Select to include Claude in your AI request"><input type="checkbox" id="claude" name="ai_options" value="Claude" checked>Claude</label>
+        <label title="Select to include Groq in your AI request"><input type="checkbox" id="groq" name="ai_options" value="Groq" checked>Groq</label>
+    </div>
+    <br>
+    <div style="text-align: center;">
+        <label style="color: white;font-size:large;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">Enter to submit prompt to selected AI(s). History below.<br>Shift-Enter to add new line. Keyboard shortcut: Ctrl+Shift+Z</label>
+    </div>
+    <div class="history-container" id="historyContainer">
+        <!-- History will be dynamically inserted here by JavaScript -->
+    </div>
+    <script src="popup.js"></script>
+</body>
+</html>
