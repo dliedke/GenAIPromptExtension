@@ -20,14 +20,14 @@ A powerful Chrome/Edge extension to send prompts simultaneously to multiple AI c
 ## 🔧 Installation
 
 ### Chrome Installation
-1. Download this repository as a ZIP file and extract it
+1. Download latest ZIP file from [GitHub Releases](https://github.com/dliedke/GenAIPromptExtension/releases) and extract it
 2. Go to `chrome://extensions/`
 3. Enable "Developer mode" (top right)
 4. Click "Load unpacked"
 5. Select the extracted folder
 
 ### Edge Installation
-1. Download and extract repository ZIP
+1. Download latest ZIP file from [GitHub Releases](https://github.com/dliedke/GenAIPromptExtension/releases) and extract it
 2. Go to `edge://extensions/`
 3. Turn on "Developer mode" (bottom left)
 4. Click "Load unpacked"
