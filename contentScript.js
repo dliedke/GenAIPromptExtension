@@ -34,37 +34,59 @@ function waitForElement(selector, timeout = 30000) {
     }
   }
   
-  function setElementText(element, text) {
-    if (!element) return;
-  
-    if (element.tagName.toLowerCase() === 'textarea' || 
-        element.tagName.toLowerCase() === 'rich-textarea' || 
-        element.tagName.toLowerCase() === 'input') {
-      element.value = text;
-      
-      if (location.href.includes('chat.qwenlm.ai')) {
-        element.style.height = 'auto';
-        element.style.height = element.scrollHeight + 'px';
-      }
-    } else {
-      element.innerHTML = `<p>${text}</p>`;
-    }
+function setElementText(element, text) {
+  if (!element) return;
+
+  if (element.tagName.toLowerCase() === 'textarea' || 
+      element.tagName.toLowerCase() === 'rich-textarea' || 
+      element.tagName.toLowerCase() === 'input') {
     
-    const event = new Event('input', { bubbles: true });
-    element.dispatchEvent(event);
+    // Use native setter for React-controlled inputs
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
+    nativeInputValueSetter.call(element, text);
+    
+    // Dispatch InputEvent (more comprehensive than Event for React)
+    const inputEvent = new InputEvent('input', { 
+      bubbles: true,
+      cancelable: true,
+      inputType: 'insertText',
+      data: text
+    });
+    element.dispatchEvent(inputEvent);
+    
+    // Also dispatch change event for some frameworks
+    const changeEvent = new Event('change', { bubbles: true });
+    element.dispatchEvent(changeEvent);
+    
+    if (location.href.includes('chat.qwen.ai') || location.href.includes('chat.deepseek.com')) {
+      element.style.height = 'auto';
+      element.style.height = element.scrollHeight + 'px';
+    }
+  } else {
+    element.innerHTML = `<p>${text}</p>`;
   }
+}
   
-  function triggerSendAction(siteURL, element) {
+function triggerSendAction(siteURL, element) {
     if (siteURL.includes('gemini.google.com')) {
+      const keyboardEvent = new KeyboardEvent('keydown', {
+        bubbles: true,
+        cancelable: true,
+        key: "Enter",
+        keyCode: 13
+      });
+      element.dispatchEvent(keyboardEvent);
+    }
+    else if (siteURL.includes('chat.deepseek.com')) {
+      const sendButton = document.querySelector('div._7436101[role="button"][aria-disabled="false"]');
+      if (sendButton) sendButton.click();
+    }
+    else if (siteURL.includes('chat.qwen.ai')) {
       const sendButton = document.querySelector('button.send-button');
       if (sendButton) sendButton.click();
-    } 
-    else if (siteURL.includes('chat.deepseek.com')) {
-      const sendButton = document.querySelector('.f6d670');
-      if (sendButton) sendButton.click();
     }
-    else if (siteURL.includes('chat.qwenlm.ai')) {
-      const sendButton = document.querySelector('#send-message-button');
+    else if (siteURL.includes('grok.com')) {
+      const sendButton = document.querySelector('button[type="submit"]');
       if (sendButton) sendButton.click();
     }
     else {
@@ -96,9 +118,11 @@ function waitForElement(selector, timeout = 30000) {
           } else if (location.href.includes('claude.ai')) {
             selector = '.ProseMirror';
           } else if (location.href.includes('chat.deepseek.com')) {
+            selector = 'textarea[placeholder*="DeepSeek"]';
+          } else if (location.href.includes('chat.qwen.ai')) {
             selector = '#chat-input';
-          } else if (location.href.includes('chat.qwenlm.ai')) {
-            selector = '#chat-input';
+          } else if (location.href.includes('grok.com')) {
+            selector = 'div.ProseMirror[contenteditable="true"]';
           }
   
           if (selector) {
@@ -106,7 +130,7 @@ function waitForElement(selector, timeout = 30000) {
             
             if (location.href.includes('gemini.google.com')) {
               setElementTextForQuill(element, prompt);
-            } else if (location.href.includes('claude.ai')) {
+            } else if (location.href.includes('claude.ai') || location.href.includes('grok.com')) {
               setElementTextForProseMirror(element, prompt);
             } else {
               setElementText(element, prompt);

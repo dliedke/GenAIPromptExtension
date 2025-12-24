@@ -20,7 +20,8 @@ function injectContentScriptAndSendMessage(tabId, prompt) {
       "Gemini": "https://gemini.google.com/app",
       "Claude": "https://claude.ai/chats",
       "DeepSeek": "https://chat.deepseek.com/",
-      "Qwen": "https://chat.qwenlm.ai/"
+      "Qwen": "https://chat.qwen.ai/",
+      "Grok": "https://grok.com/"
     };
   
     const urlsToOpen = message.services.map(service => serviceUrls[service]);

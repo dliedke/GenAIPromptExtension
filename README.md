@@ -11,6 +11,7 @@ A powerful Chrome/Edge extension to send prompts simultaneously to multiple AI c
  - Anthropic Claude
  - DeepSeek Chat
  - Qwen Chat
+ - Grok Chat
 - 📝 Convenient prompt history tracking (last 20 prompts)
 - ⌨️ Keyboard shortcuts support (Ctrl+Shift+Z / Command+Shift+X on Mac)
 - 🎯 Smart tab management - reuses existing tabs when possible
@@ -47,7 +48,8 @@ And access to these domains:
 - `*://gemini.google.com/app/*`
 - `*://claude.ai/chats/*`
 - `*://chat.deepseek.com/*`
-- `*://chat.qwenlm.ai/*`
+- `*://chat.qwen.ai/*`
+- `*://grok.com/*`
 
 ## 🎮 Usage
 

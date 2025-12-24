@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "GenAI Prompt Extension",
-  "version": "2.0",
+  "version": "2.1",
   "permissions": [
     "tabs",
     "activeTab",
@@ -14,7 +14,8 @@
     "*://gemini.google.com/app/*", 
     "*://claude.ai/chats/*",
     "*://chat.deepseek.com/*",
-    "*://chat.qwenlm.ai/*"
+    "*://chat.qwen.ai/*",
+    "*://grok.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -26,7 +27,8 @@
         "*://gemini.google.com/app/*",
         "*://claude.ai/chats/*",
         "*://chat.deepseek.com/*",
-        "*://chat.qwenlm.ai/*"
+        "*://chat.qwen.ai/*",
+        "*://grok.com/*"
       ],
       "js": ["contentScript.js"]
     }
